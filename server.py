@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from waitress import serve
 
 URL_REGEX = r"^https:\/\/www.cda.pl\/video\/([^\/\s]+)"
+HTTP_PROXY = os.environ.get("HTTP_PROXY")
 
 # Init app
 app = Flask(__name__, template_folder="")
@@ -51,6 +52,10 @@ def extract_video(video_id: str, quality: str = None):
         "Referer": "http://www.cda.pl",
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0"
     })
+    
+    # Set proxy to avoid crappy CDNs
+    if HTTP_PROXY:
+        request.set_proxy(HTTP_PROXY, "http")
 
     try:
         response = urllib.request.urlopen(request).read()
