@@ -10,7 +10,7 @@ from flask import Flask, request, render_template
 from bs4 import BeautifulSoup
 from waitress import serve
 
-URL_REGEX = r"^https:\/\/www.cda.pl\/video\/([^\/\s]+)"
+URL_REGEX = r"^https:\/\/(www|edb|m).cda.pl\/video\/([^\/\s]+)"
 HTTP_PROXY = os.environ.get("HTTP_PROXY")
 
 # Init app
@@ -99,7 +99,7 @@ def index():
             render_template("index.html", error="Invalid link given.")
 
         # Grab video id from cda.pl url
-        video_id = re.findall(URL_REGEX, url)[0]
+        video_id = re.match(URL_REGEX, url)[2]
 
         try:
             video = extract_video(video_id, quality)
