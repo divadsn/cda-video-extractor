@@ -10,7 +10,7 @@ from flask import Flask, request, render_template
 from bs4 import BeautifulSoup
 from waitress import serve
 
-URL_REGEX = r"^https:\/\/(www|edb|m).cda.pl\/video\/([^\/\s]+)"
+URL_REGEX = r"^https:\/\/(www|m).cda.pl\/video\/([^\/\s]+)"
 HTTP_PROXY = os.environ.get("HTTP_PROXY")
 
 # Init app
