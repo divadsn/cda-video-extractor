@@ -38,7 +38,7 @@ def decrypt_file(a: str):
     # first replace very cringy joke, then apply decodeURIComponent
     a = unquote(a.replace("_XDDD", ""))
 
-    # store decrypted characters 
+    # store decrypted characters
     b = []
 
     for e in range(len(a)):
@@ -46,7 +46,7 @@ def decrypt_file(a: str):
         b.append(chr(33 + (f + 14) % 94) if 33 <= f and 126 >= f else chr(f))
 
     # decrypted URL
-    a =  "".join(b)
+    a = "".join(b)
 
     # more "obfuscation" to deal with
     a = a.replace(".cda.mp4", "")
@@ -65,7 +65,7 @@ def extract_video(video_id: str, quality: str = None):
         "Referer": "http://www.cda.pl",
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0"
     })
-    
+
     # Set proxy to avoid crappy CDNs
     if HTTP_PROXY:
         request.set_proxy(HTTP_PROXY, "http")
