@@ -37,6 +37,10 @@ class PremiumOnlyError(Exception):
 def decrypt_file(a: str):
     b = []
 
+    a = a.replace('_XDDD', '')
+    a = a.replace('_CDA', '')
+    a = a.replace('_ADC', '')
+
     for e in range(len(a)):
         f = ord(a[e])
         b.append(chr(33 + (f + 14) % 94) if 33 <= f and 126 >= f else chr(f))
