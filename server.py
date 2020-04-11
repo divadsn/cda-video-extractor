@@ -35,26 +35,17 @@ class PremiumOnlyError(Exception):
 
 
 def decrypt_file(a: str):
-    # first replace very cringy joke, then apply decodeURIComponent
-    a = unquote(a.replace("_XDDD", ""))
-
-    # store decrypted characters
     b = []
+
+    a = a.replace('_XDDD', '')
+    a = a.replace('_CDA', '')
+    a = a.replace('_ADC', '')
 
     for e in range(len(a)):
         f = ord(a[e])
         b.append(chr(33 + (f + 14) % 94) if 33 <= f and 126 >= f else chr(f))
 
-    # decrypted URL
-    a = "".join(b)
-
-    # more "obfuscation" to deal with
-    a = a.replace(".cda.mp4", "")
-    a = a.replace(".2cda.pl", ".cda.pl")
-    a = a.replace(".3cda.pl", ".cda.pl")
-
-    # return extracted file as URL to video file
-    return "https://" + a + ".mp4"
+    return "".join(b)
 
 
 def extract_video(video_id: str, quality: str = None):
@@ -65,7 +56,7 @@ def extract_video(video_id: str, quality: str = None):
         "Referer": "http://www.cda.pl",
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0"
     })
-
+    
     # Set proxy to avoid crappy CDNs
     if HTTP_PROXY:
         request.set_proxy(HTTP_PROXY, "http")
@@ -98,7 +89,7 @@ def extract_video(video_id: str, quality: str = None):
 
     return {
         "title": title,
-        "src": decrypt_file(player_data["video"]["file"])
+        "src": "https://" + decrypt_file(unquote(player_data["video"]["file"])) + ".mp4"
     }
 
 
