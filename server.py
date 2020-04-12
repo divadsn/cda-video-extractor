@@ -35,8 +35,14 @@ class PremiumOnlyError(Exception):
 
 
 def decrypt_file(a: str):
-    # first replace very cringy joke, then apply decodeURIComponent
-    a = unquote(a.replace("_XDDD", ""))
+    words = ["_XDDD", "_CDA", "_ADC", "_CXD", "_QWE", "_Q5"]
+    
+    # first replace very cringy joke and other bad obfuscation
+    for i in words:
+        a = a.replace(i, "")
+    
+    # then apply decodeURIComponent using urllib.parse
+    a = unquote(a)
 
     # store decrypted characters
     b = []
