@@ -35,7 +35,7 @@ class PremiumOnlyError(Exception):
 
 
 def decrypt_file(a: str):
-    words = ["_XDDD", "_CDA", "_ADC", "_CXD", "_QWE", "_Q5"]
+    words = ["_XDDD", "_CDA", "_ADC", "_CXD", "_QWE", "_Q5", "_IKSDE"]
     
     # first replace very cringy joke and other bad obfuscation
     for i in words:
